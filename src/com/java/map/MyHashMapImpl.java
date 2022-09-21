@@ -1,7 +1,9 @@
 package com.java.map;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -29,10 +31,7 @@ public class MyHashMapImpl<K, V> implements MyHashMap<K, V> {
      */
     @Override
     public boolean isEmpty() {
-        if (this.size == 0) {
-            return true;
-        }
-        return false;
+        return this.size == 0;
     }
 
     /**
@@ -43,8 +42,7 @@ public class MyHashMapImpl<K, V> implements MyHashMap<K, V> {
         Node<K, V>[] tab;
         if ((tab = table) != null && size > 0) {
             size = 0;
-            for (int i = 0; i < tab.length; ++i)
-                tab[i] = null;
+            Arrays.fill(tab, null);
         }
     }
 
@@ -65,7 +63,6 @@ public class MyHashMapImpl<K, V> implements MyHashMap<K, V> {
             try {
                 e = table[location];
             } catch (NullPointerException ex) {
-
             }
             if (e != null) {
                 ret = getNode(e, key);
@@ -102,7 +99,7 @@ public class MyHashMapImpl<K, V> implements MyHashMap<K, V> {
      */
     @Override
     public V put(K key, V value) {
-        V resultValue = null;
+        V resultValue;
         if (key == null) {
             resultValue = putForNullKey(value);
         } else {
@@ -123,7 +120,7 @@ public class MyHashMapImpl<K, V> implements MyHashMap<K, V> {
                     size++;
                 }
             } else {
-                Node<K, V> eNew = new Node<K, V>(key.hashCode(), key, value, null);
+                Node<K, V> eNew = new Node<>(key.hashCode(), key, value, null);
                 table[location] = eNew;
                 resultValue = eNew.getVal();
                 size++;
@@ -157,7 +154,7 @@ public class MyHashMapImpl<K, V> implements MyHashMap<K, V> {
             resultValue = newNode.getVal();
             newNode.setVal(val);
         } else {
-            Node<K, V> eNew = new Node<K, V>(0, null, val, null);
+            Node<K, V> eNew = new Node<>(0, null, val, null);
             table[0] = eNew;
             size++;
         }
@@ -175,7 +172,7 @@ public class MyHashMapImpl<K, V> implements MyHashMap<K, V> {
     /**
      * Remove element with key
      *
-     * @param key
+     * @param key - element key
      * @return value element
      */
     @Override
@@ -220,8 +217,7 @@ public class MyHashMapImpl<K, V> implements MyHashMap<K, V> {
             if (nodeNext.getNext() != null) {
                 node.setNext(nodeNext.getNext());
             } else {
-                nodeNext = null;
-                node.setNext(nodeNext);
+                node.setNext(null);
             }
             size--;
         } else if (nodeNext.getNext() != null) {
@@ -240,13 +236,13 @@ public class MyHashMapImpl<K, V> implements MyHashMap<K, V> {
         final List<K> setKey = new ArrayList<>();
         int counterKey = 0;
         if (table[0].getKey() == null)
-            for (int i = 0; i < table.length; i++) {
-                if (table[i] != null) {
-                    counterKey = getCounterKey(setKey, counterKey, i, table[i]);
+            for (Node<K, V> kvNode : table) {
+                if (kvNode != null) {
+                    counterKey = getCounterKey(setKey, counterKey, kvNode);
                 }
             }
         List<K> set = setKey.stream()
-                .filter(k -> k != null)
+                .filter(Objects::nonNull)
                 .sorted((key1, key2) -> ((Comparable) key1).compareTo(key2)).collect(Collectors.toList());
 
         if (setKey.size() > set.size()) {
@@ -255,10 +251,10 @@ public class MyHashMapImpl<K, V> implements MyHashMap<K, V> {
         return set.toArray(new Object[size]);
     }
 
-    private int getCounterKey(List<K> setKey, int counterKey, int i, Node<K, V> node) {
+    private int getCounterKey(List<K> setKey, int counterKey, Node<K, V> node) {
         setKey.add(counterKey++, node.getKey());
         if (node.getNext() != null) {
-            getCounterKey(setKey, counterKey, i, node.getNext());
+            getCounterKey(setKey, counterKey, node.getNext());
         }
         return counterKey;
     }
@@ -271,8 +267,8 @@ public class MyHashMapImpl<K, V> implements MyHashMap<K, V> {
         } else {
             StringBuilder result = new StringBuilder();
             result.append("[");
-            for (int i = 0; i < table.length; i++) {
-                result.append(printNodeForOneLocation(table[i]));
+            for (Node<K, V> kvNode : table) {
+                result.append(printNodeForOneLocation(kvNode));
             }
             result.replace(result.length() - 2, result.length(), "]");
             return result.toString();
@@ -297,14 +293,11 @@ public class MyHashMapImpl<K, V> implements MyHashMap<K, V> {
      * @param <K> – the type of keys maintained by this map
      * @param <V> – the type of mapped values
      */
-    class Node<K, V> {
+    static class Node<K, V> {
         int hash;
         K key;
         V val;
         Node<K, V> next;
-
-        public Node() {
-        }
 
         Node(int hash, K key, V val, Node<K, V> next) {
             this.hash = hash;
@@ -338,8 +331,7 @@ public class MyHashMapImpl<K, V> implements MyHashMap<K, V> {
             int prime = 13;
             int mul = 11;
             if (key != null) {
-                int hashCode = prime * mul + key.hashCode();
-                return hashCode;
+                return prime * mul + key.hashCode();
             }
             return 0;
         }
@@ -349,14 +341,11 @@ public class MyHashMapImpl<K, V> implements MyHashMap<K, V> {
             if (this == o) {
                 return true;
             }
-            if (o == null || this.getClass().getName() != o.getClass().getName()) {
+            if (o == null || !this.getClass().getName().equals(o.getClass().getName())) {
                 return false;
             }
             Node e = (Node) o;
-            if (this.key == e.key) {
-                return true;
-            }
-            return false;
+            return this.key == e.key;
         }
 
         @Override

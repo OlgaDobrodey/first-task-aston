@@ -5,6 +5,7 @@ public class Main {
         // Create new MyArrayListImpl with capacity equals 2
         MyArrayList<Integer> list = new MyArrayListImpl<>(2);
 
+        //Add
         list.add(1);
         list.add(100);
         list.add(12);
@@ -12,13 +13,18 @@ public class Main {
         list.addAll(list);
         System.out.println("List after added list = " + list);
 
+        //Get
         System.out.println("Element with index =4 - element = " + list.get(4));
+
+        //Remove
         System.out.println("Remove element with index = 4 " + list.remove(4));
         System.out.println("List after remove - list = " + list);
 
         //Sort
         list.quickSort();
         System.out.println("List after QuickSort - list = " + list);
+
+        //Clean
         list.clear();
         System.out.println("Clean list " + list);
     }

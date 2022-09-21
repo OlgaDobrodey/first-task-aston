@@ -39,7 +39,7 @@ public class MyArrayListImpl<E> implements MyArrayList<E>{
     /**
      * Add new element to MyArrayListImpl
      *
-     * @param element
+     * @param element - added element
      */
     @Override
     public void add(E element) {
@@ -179,7 +179,7 @@ public class MyArrayListImpl<E> implements MyArrayList<E>{
      * @param arr  - array to be sorted
      * @param from - sort start
      * @param to   - sort finish
-     * @return
+     * @return number of left index
      */
     private int partition(E[] arr, int from, int to) {
         int rightIndex = to;
@@ -187,7 +187,7 @@ public class MyArrayListImpl<E> implements MyArrayList<E>{
 
         E pivot = arr[from + (to - from) / 2];
         while (leftIndex <= rightIndex) {
-            while (((Comparable) arr[leftIndex]).compareTo(pivot) < 0) {
+            while (((Comparable)arr[leftIndex]).compareTo(pivot) < 0) {
                 leftIndex++;
             }
 
