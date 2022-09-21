@@ -5,7 +5,7 @@ import java.util.Arrays;
 public class Main {
 
     public static void main(String[] args) {
-        MyHashMapImpl<Integer, String> hashMap = new MyHashMapImpl<>();
+        MyHashMap<Integer, String> hashMap = new MyHashMapImpl<>();
         //Put elements
         hashMap.put(2, "Apple");
         hashMap.put(1, "Orange");

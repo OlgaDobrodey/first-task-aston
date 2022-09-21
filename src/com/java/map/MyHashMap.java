@@ -1,8 +1,10 @@
 package com.java.map;
 
-import java.util.List;
-
-public interface MyHashMap<K, V> {
+/**
+ * This is my HashMap interface
+ *
+ * @author Dobrodey Olga
+ */public interface MyHashMap<K, V> {
 
     void clear();
 

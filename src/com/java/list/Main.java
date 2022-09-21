@@ -3,7 +3,7 @@ package com.java.list;
 public class Main {
     public static void main(String[] args) {
         // Create new MyArrayListImpl with capacity equals 2
-        MyArrayListImpl<Integer> list = new MyArrayListImpl<>(2);
+        MyArrayList<Integer> list = new MyArrayListImpl<>(2);
 
         list.add(1);
         list.add(100);

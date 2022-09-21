@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * This is my HashMap implementation
+ *
+ * @author Dobrodey Olga
+ */
 public class MyHashMapImpl<K, V> implements MyHashMap<K, V> {
 
     private static final int DEFAULT_CAPACITY = 11;
@@ -19,6 +24,9 @@ public class MyHashMapImpl<K, V> implements MyHashMap<K, V> {
         return location + 1;
     }
 
+    /**
+     * @return true if hash map is Empty
+     */
     @Override
     public boolean isEmpty() {
         if (this.size == 0) {
@@ -27,6 +35,9 @@ public class MyHashMapImpl<K, V> implements MyHashMap<K, V> {
         return false;
     }
 
+    /**
+     * Remove all elements
+     */
     @Override
     public void clear() {
         Node<K, V>[] tab;
@@ -37,6 +48,12 @@ public class MyHashMapImpl<K, V> implements MyHashMap<K, V> {
         }
     }
 
+    /**
+     * Getting value for element key
+     *
+     * @param key - element key
+     * @return value
+     */
     @Override
     public V get(Object key) {
         V ret = null;
@@ -76,6 +93,13 @@ public class MyHashMapImpl<K, V> implements MyHashMap<K, V> {
         return ret;
     }
 
+    /**
+     * Adding element to HashMap
+     *
+     * @param key   - element key
+     * @param value - element value
+     * @return - element value
+     */
     @Override
     public V put(K key, V value) {
         V resultValue = null;
@@ -140,11 +164,20 @@ public class MyHashMapImpl<K, V> implements MyHashMap<K, V> {
         return resultValue;
     }
 
+    /**
+     * @return hash map size
+     */
     @Override
     public int size() {
         return size;
     }
 
+    /**
+     * Remove element with key
+     *
+     * @param key
+     * @return value element
+     */
     @Override
     public V remove(Object key) {
         V resultValue = null;
@@ -197,6 +230,11 @@ public class MyHashMapImpl<K, V> implements MyHashMap<K, V> {
         return ret;
     }
 
+    /**
+     * Sorting an array of map keys
+     *
+     * @return array
+     */
     @Override
     public Object[] sort() {
         final List<K> setKey = new ArrayList<>();
@@ -253,6 +291,12 @@ public class MyHashMapImpl<K, V> implements MyHashMap<K, V> {
         return string;
     }
 
+    /**
+     * HashMap element class
+     *
+     * @param <K> – the type of keys maintained by this map
+     * @param <V> – the type of mapped values
+     */
     class Node<K, V> {
         int hash;
         K key;
@@ -269,14 +313,6 @@ public class MyHashMapImpl<K, V> implements MyHashMap<K, V> {
             this.next = next;
         }
 
-        public int getHash() {
-            return hash;
-        }
-
-        public void setHash(int hash) {
-            this.hash = hash;
-        }
-
         public Node<K, V> getNext() {
             return next;
         }
@@ -287,10 +323,6 @@ public class MyHashMapImpl<K, V> implements MyHashMap<K, V> {
 
         public K getKey() {
             return key;
-        }
-
-        public void setKey(K key) {
-            this.key = key;
         }
 
         public V getVal() {

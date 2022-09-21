@@ -7,7 +7,7 @@ import java.util.Arrays;
  *
  * @author Dobrodey Olga
  */
-public class MyArrayListImpl<E> {
+public class MyArrayListImpl<E> implements MyArrayList<E>{
 
     /**
      * Default initial capacity.
@@ -41,6 +41,7 @@ public class MyArrayListImpl<E> {
      *
      * @param element
      */
+    @Override
     public void add(E element) {
         ensureCapacity(size + 1);
         elementData[size++] = element;
@@ -52,6 +53,7 @@ public class MyArrayListImpl<E> {
      * @throws IndexOutOfBoundsException – if the index is out of range (index < 0 || index > size())
      */
 
+    @Override
     public void add(int index, E element) {
         if (index > 0 && index <= size()) {
             ensureCapacity(size + 1);
@@ -67,7 +69,8 @@ public class MyArrayListImpl<E> {
      * @param arrayList - arrayList to be added in list
      * @return true if this list changed as a result of the call
      */
-    public boolean addAll(MyArrayListImpl<? extends E> arrayList) {
+    @Override
+    public boolean addAll(MyArrayList<? extends E> arrayList) {
         Object[] array = arrayList.toArray();
         int addLength = array.length;
         if (addLength == 0)
@@ -80,7 +83,8 @@ public class MyArrayListImpl<E> {
         return true;
     }
 
-    private void ensureCapacity(int minCapacity) {
+    @Override
+    public void ensureCapacity(int minCapacity) {
         if (minCapacity > elementData.length) {
             int newCapacity = elementData.length * 3 / 2 + 1;
             createNewArray(newCapacity);
@@ -96,6 +100,7 @@ public class MyArrayListImpl<E> {
     /**
      * Remove all elements of MyArrayListImpl
      */
+    @Override
     public void clear() {
         final E[] es = elementData;
         for (int to = size, i = size = 0; i < to; i++)
@@ -108,6 +113,7 @@ public class MyArrayListImpl<E> {
      * @param index - index of the element to return
      * @return the element at the specified position in this list
      */
+    @Override
     public E get(int index) {
         return elementData[index];
     }
@@ -119,6 +125,7 @@ public class MyArrayListImpl<E> {
      * @return remoted element
      * @throws IndexOutOfBoundsException if the index is out of range (index < 0 || index > size())
      */
+    @Override
     public E remove(int index) {
         if (index > 0 && index < size) {
             int numberMove = size - index - 1;
@@ -132,10 +139,12 @@ public class MyArrayListImpl<E> {
     /**
      * Sort list in natural direction
      */
+    @Override
     public void sort() {
         Arrays.sort((E[]) elementData);
     }
 
+    @Override
     public int size() {
         return size;
     }
@@ -143,6 +152,7 @@ public class MyArrayListImpl<E> {
     /**
      * Sorting - quicksort method for ArrayList <E>
      */
+    @Override
     public void quickSort() {
         quickSortArray(elementData, 0, size - 1);
     }
@@ -210,6 +220,7 @@ public class MyArrayListImpl<E> {
     /**
      * @return array of objects
      */
+    @Override
     public Object[] toArray() {
         return Arrays.copyOf(elementData, size);
     }
