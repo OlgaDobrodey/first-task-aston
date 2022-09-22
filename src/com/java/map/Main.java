@@ -9,12 +9,15 @@ public class Main {
         //Put elements
         hashMap.put(2, "Apple");
         hashMap.put(1, "Orange");
+        // Put two elements with one key
         hashMap.put(79, "Grape");
         hashMap.put(79, "Grape2");
         hashMap.put(88, "Tomato");
+        // Put three elements to one basket
         hashMap.put(10, "Tomato2");
         hashMap.put(30, "Tomato2");
         hashMap.put(20, "Tomato3");
+        //Put two elements with one null
         hashMap.put(null, "Pear");
         hashMap.put(null, "Pear2");
         System.out.println("Size = " + hashMap.size());
