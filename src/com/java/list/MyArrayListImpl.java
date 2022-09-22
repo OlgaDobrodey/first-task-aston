@@ -10,9 +10,10 @@ import java.util.Arrays;
 public class MyArrayListImpl<E> implements MyArrayList<E>{
 
     /**
-     * Default initial capacity.
+     * Empty array for init
      */
-    private static final int DEFAULT_CAPACITY = 10;
+    private static final Object[] EMPTY_ELEMENT_DATA = {};
+
     /**
      * Array E[] that contains all the elements
      */
@@ -23,14 +24,14 @@ public class MyArrayListImpl<E> implements MyArrayList<E>{
     private int size;
 
     public MyArrayListImpl() {
-        elementData = (E[]) new Object[DEFAULT_CAPACITY];
+        elementData = (E[]) EMPTY_ELEMENT_DATA;
     }
 
     public MyArrayListImpl(int capacity) {
         if (capacity > 0) {
             this.elementData = (E[]) new Object[capacity];
         } else if (capacity == 0) {
-            this.elementData = (E[]) new Object[]{};
+            this.elementData = (E[]) EMPTY_ELEMENT_DATA;
         } else {
             throw new IllegalArgumentException("Illegal Capacity: " + capacity);
         }
@@ -141,7 +142,7 @@ public class MyArrayListImpl<E> implements MyArrayList<E>{
      */
     @Override
     public void sort() {
-        Arrays.sort((E[]) elementData);
+        Arrays.sort(elementData);
     }
 
     @Override
