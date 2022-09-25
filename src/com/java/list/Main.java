@@ -21,8 +21,7 @@ public class Main {
         System.out.println("List after remove - list = " + list);
 
         //Sort
-        list.quickSort();
-        System.out.println("List after QuickSort - list = " + list);
+        System.out.println("List after QuickSort - list = " + new SortImpl<Integer>().quickSort(list));
 
         //Clean
         list.clear();

@@ -137,85 +137,9 @@ public class MyArrayListImpl<E> implements MyArrayList<E>{
         } else throw new IndexOutOfBoundsException("Index must be between 0 and size");
     }
 
-    /**
-     * Sort list in natural direction
-     */
-    @Override
-    public void sort() {
-        Arrays.sort(elementData);
-    }
-
     @Override
     public int size() {
         return size;
-    }
-
-    /**
-     * Sorting - quicksort method for ArrayList <E>
-     */
-    @Override
-    public void quickSort() {
-        quickSortArray(elementData, 0, size - 1);
-    }
-
-    /**
-     * Sorting - quicksort method for array
-     *
-     * @param arr  - array to be sorted
-     * @param from - sort start
-     * @param to   - sort finish
-     */
-    private void quickSortArray(E[] arr, int from, int to) {
-        if (from < to) {
-            int divideIndex = partition(arr, from, to);
-
-            quickSortArray(arr, from, divideIndex - 1);
-            quickSortArray(arr, divideIndex, to);
-        }
-    }
-
-    /**
-     * Getting division index for array
-     *
-     * @param arr  - array to be sorted
-     * @param from - sort start
-     * @param to   - sort finish
-     * @return number of left index
-     */
-    private int partition(E[] arr, int from, int to) {
-        int rightIndex = to;
-        int leftIndex = from;
-
-        E pivot = arr[from + (to - from) / 2];
-        while (leftIndex <= rightIndex) {
-            while (((Comparable)arr[leftIndex]).compareTo(pivot) < 0) {
-                leftIndex++;
-            }
-
-            while (((Comparable) arr[rightIndex]).compareTo(pivot) > 0) {
-                rightIndex--;
-            }
-
-            if (leftIndex <= rightIndex) {
-                swap(arr, rightIndex, leftIndex);
-                leftIndex++;
-                rightIndex--;
-            }
-        }
-        return leftIndex;
-    }
-
-    /**
-     * Move elements according to position
-     *
-     * @param array  - array to change
-     * @param index1 - element's index
-     * @param index2 - element's index
-     */
-    private void swap(E[] array, int index1, int index2) {
-        E tmp = array[index1];
-        array[index1] = array[index2];
-        array[index2] = tmp;
     }
 
     /**

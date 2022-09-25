@@ -20,11 +20,7 @@ public interface MyArrayList<E> {
 
     E remove(int index);
 
-    void sort();
-
     int size();
-
-    void quickSort();
 
     Object[] toArray();
 }
